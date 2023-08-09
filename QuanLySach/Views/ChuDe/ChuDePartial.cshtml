@@ -1,0 +1,13 @@
+﻿@using QuanLySach.Models;
+@model List<ChuDe>
+
+<h2 style="color:red;background:#ccc;padding:15px 0;text-align:center;">Danh sách chủ đề : </h2>
+@{
+    foreach (var item in Model)
+    {
+        <a href="@Url.Action("SachTheoChuDe","ChuDe",new { @Ma=item.MaChuDe})" class="button button-submit">@item.TenChuDe</a>
+    }
+}
+<br />
+
+

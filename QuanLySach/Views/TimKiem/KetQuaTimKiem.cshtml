@@ -1,0 +1,54 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+
+
+@model IPagedList<QuanLySach.Models.Sach>
+
+@{
+    ViewBag.Title = "KetQuaTimKiem";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .btn-pastel {
+        background-color: #cfb686;
+        color: #fff;
+    }
+</style>
+<h2>Kết quả tìm kiếm</h2>
+
+@ViewBag.ThongBao
+</div>
+<hr />
+<div style="font-size:30px;margin-left :10px;"><p><i class="glyphicon-bookmark"></i>DANH MỤC SÁCH</p></div>
+<hr />
+@{ int i = 0; }
+<div class="row">
+    @foreach (var item in Model)
+    {
+        i++;
+        <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+            <div class="card" style="margin-bottom: 20px; height: 450px;">
+                <a href="@Url.Action("XemChiTiet", "Sach", new { Ma = item.MaSach })">
+                    <img src="~/HinhAnhSP/@item.AnhBia" alt="Image" class="card-img-top" style="height: 300px; object-fit: cover;">
+                </a>
+                <div class="card-body" style="position: relative;">
+                    <h5 class="card-title">@item.TenSach</h5>
+                    <p class="card-text">Giá: @string.Format("{0:0,0}", item.GiaBan) VND</p>
+                    @using (Html.BeginForm("ThemGioHang", "GioHang", new { Ma = item.MaSach, strURL = Request.Url.ToString() }, FormMethod.Post, new { @class = "d-inline" }))
+                    {
+                        <button type="submit" class="btn btn-pastel" style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);">Thêm giỏ hàng <i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div style="clear:both"></div>
+@* tao link cac trang *@
+
+Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("KetQuaTimKiem", "TimKiem", new { page = page, @tukhoa = ViewBag.TuKhoa }))
+
+
+

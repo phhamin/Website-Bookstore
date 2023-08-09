@@ -1,0 +1,105 @@
+﻿@using PagedList.Mvc;
+@model PagedList.PagedList<QuanLySach.Models.DonHang>
+@using QuanLySach.Models
+
+@{
+    ViewBag.Title = "IndexDH";
+    Layout = "~/Views/Shared/Admin.cshtml";
+
+}
+
+<h2>ĐƠN HÀNG</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.First().MaDonHang)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().MaKH)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().NgayDat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().NgayGiao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().TinhTrangGiaoHang)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.First().DaThanhToan)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().KhachHang.HoTen)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().TongTien)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        decimal tongTien = 0;
+        foreach (var chiTiet in item.ChiTietDonHangs)
+        {
+            decimal thanhTien = (decimal)chiTiet.DonGia * (decimal)chiTiet.SoLuong;
+            tongTien += thanhTien;
+        }
+
+        int tongTienNguyen = (int)tongTien;
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaDonHang)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaKH)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayDat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayGiao)
+            </td>
+            @if (item.TinhTrangGiaoHang == true)
+            {
+                <td>
+                    Đã giao hàng
+                </td>
+            }
+            else
+            {
+                <td>
+                    Chưa giao hàng
+                </td>
+            }
+            @if (item.DaThanhToan == true)
+            {
+                <td>
+                    Đã thanh toán
+                </td>
+            }
+            else
+            {
+                <td>
+                    Chưa thanh toán
+                </td>
+            }
+            <td>
+                @Html.DisplayFor(modelItem => item.KhachHang.HoTen)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => tongTienNguyen)
+            </td>
+            <td>
+                @Html.ActionLink("Chỉnh Sửa", "ChinhSua", new { @MaSach = item.MaDonHang }) |
+                @Html.ActionLink("Hiển Thị", "HienThi", new { @MaSach = item.MaDonHang }) |
+                @Html.ActionLink("Xóa", "Xoa", new { @MaSach = item.MaDonHang })
+            </td>
+        </tr>
+    }
+</table>
+Trang @(Model.PageCount<Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("IndexDH", "Admin", new { page = page })).

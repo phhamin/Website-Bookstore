@@ -1,0 +1,252 @@
+﻿@using QuanLySach.Models
+
+@{
+    var taiKhoan = HttpContext.Current.Session["TaiKhoan"] as KhachHang;
+    var taiKhoanAdmin = HttpContext.Current.Session["Username"] as tbl_Login;
+    var isLoggedIn = taiKhoan != null;
+    var isLoggedOut = !isLoggedIn;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nhà sách trực tuyến Nhã Nam</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <link href="~/Content/fonts.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/nivo-slider.css" rel="stylesheet" />
+    <link href="~/Content/css.css" rel="stylesheet" />
+    <link href="~/Content/screen.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.nivo.slider.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+
+</head>
+<style>
+    .button-buy {
+        background-color: #cfb686;
+        color: #fff;
+    }
+    .icon_account_gray {
+        background: url(/skin/frontend/ma_vanese/fahasa/images/ico_account_gray.svg) no-repeat center center;
+        _webkit-background-size: contain;
+        _moz-background-size: contain;
+        _o-background-size: contain;
+        background-size: contain;
+        height: 24px;
+        width: 24px;
+        position: relative;
+    }
+
+    .dropdown:hover .dropdown-menu {
+        display: block;
+        background-color: #cfb686;
+        color: #fff;
+    }
+
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        padding: 12px 16px;
+    }
+
+        .dropdown-menu a {
+            color: white;
+            text-decoration: none;
+            display: block;
+        }
+
+            .dropdown-menu a:hover {
+                text-decoration: none;
+                color: black;
+                background-color: white;
+            }
+
+    .header-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .flash {
+        background-color: #f2f2f2;
+        padding-bottom: 40px;
+        padding-top: 20px;
+    }
+
+    .dangki_dangnhap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+        .dangki_dangnhap a {
+            margin: 0 10px;
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    #user-icon {
+        color: black;
+        width: 20px;
+        height: 20px;
+        padding-bottom: 20px;
+    }
+</style>
+<body>
+
+    <section class="blank">
+        <div class="flash">
+            <div style="text-align:start"></div>
+            <div class="dangki_dangnhap">
+                @if (isLoggedIn)
+                {
+                    if (taiKhoanAdmin != null) // Kiểm tra vai trò của người dùng đăng nhập
+                    {
+                        // Hiển thị trang quản trị
+                        @Html.ActionLink("Trang Quản Trị", "Index", "Admin", null, htmlAttributes: new { @class = "DangNhap" })
+                    }
+                    else
+                    {
+                        @Html.Action("GioHangPartial", "GioHang")
+                    }
+
+                    <a href="#" class="fas fa-users" style="text-decoration:none;color:black" onclick="redirectToEditPage()">
+                        <br />Thông tin khách hàng
+                    </a>
+
+                    <i class="" aria-hidden="true" target="_blank"></i>
+                    <div class="icon-logout">
+                        <a href="#" class="DangNhap" onclick="confirmLogout()" style="text-decoration:none;color:black">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z" />
+                                <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z" />
+                            </svg><br />Đăng xuất
+                        </a>
+                    </div>
+                }
+                else if (isLoggedOut)
+                {
+                    @Html.Action("GioHangPartial", "GioHang")
+                    <i class="" aria-hidden="true" target="_blank"></i>
+                    <div class="dropdown">
+
+                        <a href="#" style="text-decoration:none;color:black; margin:-5px; margin-bottom:30px">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20 " fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z" />
+                            </svg><br />Tài khoản
+                        </a>
+                        <div class="dropdown-menu" style="text-align:center">
+                            <div>@Html.ActionLink("Đăng Nhập", "DangNhap", "NguoiDung", null, htmlAttributes: new { @class = "DangNhap" })</div>
+                            <div>@Html.ActionLink("Đăng Kí", "DangKi", "NguoiDung", null, htmlAttributes: new { @class = "DangKi" })</div>
+                        </div>
+                    </div>
+
+                }
+            </div>
+        </div>
+        <div>
+            <img src="~/Images/banner.png" alt="Ảnh của bạn" class="header-image" />
+        </div>
+
+        <div class="flash success">
+            <div class="timkiem">
+                @using (Html.BeginForm("KetQuaTimKiem", "TimKiem", FormMethod.Post))
+                {
+                    @Html.TextBox("txtTimKiem", "", htmlAttributes: new { @class = "TextBoxTimKiem", @placeholder = "Tím kiếm sách " })
+                    <button class="btntimkiem" type="submit"></button>
+                }
+            </div>
+            <div class="menu-top" style="color:black">
+                <ul>
+                    <li><a href="@Url.Action("Index","Home")" style="text-decoration:none;color:aliceblue;"> Trang Chủ</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-link" style="text-decoration:none;color:aliceblue;">Danh mục</a>
+                        <div class="dropdown-menu">
+                            <a href="@Url.Action("DanhMucNhaXuatBan","NhaXuatBan")">Nhà xuất bản</a>
+                            <a href="@Url.Action("DanhMucChuDe","ChuDe")">Chủ đề</a>
+                        </div>
+                    </li>
+                    <li><a href="@Url.Action("GioiThieu","About")" style="text-decoration:none;color:aliceblue;"> Giới Thiệu</a></li>
+                    <li><a href="@Url.Action("Index","Home")" style="text-decoration:none;color:aliceblue;"> Sách</a></li>
+                    <li><a href="@Url.Action("TinTuc","About")" style="text-decoration:none;color:aliceblue;"> Tin tức</a></li>
+                    <li><a href="@Url.Action("LienHe","About")" style="text-decoration:none;color:aliceblue;"> Liên Hệ</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <section>
+
+        <div class="noidung" style="margin:1px 1px 1px 1px">
+            @RenderBody()
+        </div>
+    </section>
+    <section>
+        <div class="footer" style="">
+            <div class="end">
+                <div class="container">
+                    <div class="col-md-6">
+                        <div class="footer_container">
+                            <h3>QUY ĐỊNH, CHÍNH SÁCH</h3>
+                            <p><a href="#" style="color: #a7a7a7">QĐ đổi hàng và hoàn trả tiền</a></p>
+                            <p><a href="#" style="color: #a7a7a7">Quy Định</a></p>
+                            <p><a href="#" style="color: #a7a7a7">Chính sách cửa hàng</a></p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="footer_container">
+                            <h3>THÔNG TIN NHÓM</h3>
+                            <p>Phan Thị Phương Hà</p>
+                            <p>Nguyễn Ngọc Đức Nhông</p>
+                            <p>Phạm Nguyễn Thiên Lân</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div>
+            <a href="#" class="button button-buy">Nhóm 1 - 62.CNTT-2 </a>
+        </div>
+    </section>
+</body>
+
+<script type="text/javascript">
+    $(window).load(function () {
+        $('#slider').nivoSlider({
+        });
+    });
+</script>
+<script>
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8&appId=1838823719729580";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
+<script>//Thông báo ĐĂNG XUẤT
+    function confirmLogout() {
+        var result = confirm("Bạn muốn đăng xuất không?");
+        if (result) {
+            // Nếu người dùng đồng ý đăng xuất, chuyển hướng đến trang đăng xuất
+            window.location.href = "@Url.Action("DangXuat", "NguoiDung")";
+        }
+    }
+</script>
+
+<script>
+    function redirectToEditPage() {
+        window.location.href =  "@Url.Action("Details", "KhachHang", new { id = Session["ID"] })";
+    }
+</script>
+</html>

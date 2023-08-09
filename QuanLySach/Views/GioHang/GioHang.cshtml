@@ -1,0 +1,82 @@
+﻿@using QuanLySach.Models;
+@model List<GioHang>
+
+@{
+    ViewBag.Title = "GioHang";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Giỏ Hàng</h2>
+
+<table>
+    <tr>
+        <th style="font-weight:bold">Mã Sách</th>
+
+        <th style="font-weight:bold">Tên Sách</th>
+
+        <th style="font-weight:bold">Ảnh Bìa</th>
+
+        <th style="font-weight:bold">Đơn Giá</th>
+
+        <th style="font-weight:bold">Số Lượng</th>
+
+        <th style="font-weight:bold">Thành Tiền</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr style="clear:both">
+            <td>@item.iMaSP</td>
+
+            <td>@item.iTenSP</td>
+
+            <td><a href="@Url.Action("XemChiTiet","Sach",new { @Ma=item.iMaSP}) "><img src="~/HinhAnhSP/@item.iAnhBia" style="width:50px;height:50px;" /> </a></td>
+
+            <td>@string.Format("{0:0,0}", item.iDonGia) vnd</td>
+
+            <td>@item.iSoLuong</td>
+
+            <td>@string.Format("{0:0,0}", item.iThanhTien) vnd</td>
+
+        </tr>
+    }
+    <tr>
+        <td colspan="6" style="text-align:center">
+            <span style="padding: 10px; background: #cfb686;">
+                <a href="@Url.Action("SuaGioHang")" style="color: white;">Chỉnh Sửa Giỏ Hàng</a>
+            </span>
+
+        </td>
+    </tr>
+    <tr>
+        <td colspan="6" style="text-align:center">
+            @using (Html.BeginForm("DatHang", "GioHang"))
+            {
+                <span style="padding: 10px; background: #cfb686;">
+                    <a href="@Url.Action("DatHang")" style="text-decoration: none; color: white;">Đặt Hàng</a>
+                </span>
+
+            }
+
+        </td>
+    </tr>
+</table>
+<h3> @ViewBag.tile</h3>
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #cfb686;
+        text-align: center;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2e0bd;
+    }
+</style>
+

@@ -1,0 +1,26 @@
+﻿@using QuanLySach.Models;
+@model List<Sach>
+
+<div class="activity">
+    <h1 class="item-header">Sách Mới</h1>
+    @{
+        foreach (var item in Model)
+        {
+            <div class="activity-list-update">
+                <img src="~/HinhAnhSP/@item.AnhBia" alt="Image" style="width:50px;height:50px;border-radius:100px;">
+                @if (item.TenSach.Length < 20)
+                {
+                    <p><strong>Tiêu Đề:@item.TenSach</strong><br /><a href="@Url.Action("XemChiTiet","Sach",new { @Ma=item.MaSach})" style="color:red;font-weight:bold">Xem Chi Tiết </a></p>
+                }
+                else
+                {
+                    <p><strong>Tiêu Đề:@item.TenSach.Substring(0, 20) ...</strong><br /><a href="@Url.Action("XemChiTiet","Sach",new { @Ma=item.MaSach})" style="color:red;font-weight:bold">Xem Chi Tiết </a></p>
+                }
+                <div class="clear"></div>
+            </div>
+        }
+    }
+    <a href="#" class="item-footer green">
+        Sách Loại Mới Nhất
+    </a>
+</div>

@@ -1,0 +1,83 @@
+﻿.dangki_dangnhap{
+    float:right;
+    margin-top:-1%;
+}
+.dangki_dangnhap a{
+    padding:0 5px;
+}
+a:hover {
+    text-decoration: none;
+    color: inherit;
+}
+.phone{
+    float:left;
+    margin-top:-1%;
+}
+ul li{
+    list-style:none;
+}
+.phone i {
+    padding:0 5px;
+}
+.menu-top{
+    float:right;
+}
+    .menu-top li {
+        float: left;
+        border-right: 0.1px solid #ccc;
+        padding: 16px;
+        margin-top: -3.2%;
+        list-style-type: none;
+    }
+
+.menu-top li:hover{
+    background:#ccc;
+    transition:all 900ms linear;
+    padding-right:10px;
+}
+.menu-top li:last-child{
+    border:none;
+}
+.flash.success{
+    height:60px;
+}
+.timkiem{
+    float:left;
+}
+
+.TextBoxTimKiem{
+    float:left;
+    height:10px;
+    border-radius:10px 0 0 10px;
+}
+.btntimkiem{
+    float:left;
+    border-radius:0 10px 10px 0;
+    height:10px;
+    color:red;
+    background-position:center;
+    background-repeat:no-repeat;
+    background-size:contain;
+    background-image:url(../hinhanh/Search.png);
+}
+.btntimkiem:hover{
+    background-position:center;
+    background-repeat:no-repeat;
+    background-size:contain;
+    background-image:url(../hinhanh/Search.png);
+    transition:all 1900ms linear;
+}
+.right-slider{
+    width:800px;
+    height:360px;
+    position:absolute;
+    top:35px;
+    right:0;
+}
+.right-slider img{
+    width:800px;
+    height:360px;
+}
+
+
+

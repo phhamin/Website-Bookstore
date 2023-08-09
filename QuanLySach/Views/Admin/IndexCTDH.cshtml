@@ -1,0 +1,59 @@
+﻿@using PagedList.Mvc;
+@model PagedList.PagedList<QuanLySach.Models.ChiTietDonHang>
+@using QuanLySach.Models
+@{
+    ViewBag.Title = "IndexCTDH";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+<h2>CHI TIẾT ĐƠN HÀNG</h2>
+<p>
+    @Html.ActionLink("Thêm Mới", "ThemMoi")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.First().MaDonHang)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.First().MaSach)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.First().DonGia)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.First().SoLuong)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaDonHang)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.MaSach)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.DonGia)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.SoLuong)
+            </td>
+        </tr>   
+    }
+</table>
+Trang @(Model.PageCount<Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("IndexCTDH", "Admin", new { page = page })).
+
+
+

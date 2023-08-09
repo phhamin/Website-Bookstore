@@ -1,0 +1,22 @@
+﻿@using QuanLySach.Models;
+@model List<ChuDe>
+@{
+    ViewBag.Title = "DanhMucChuDe";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .btn-pastel {
+        background-color: #cfb686;
+        color: #fff;
+    }
+</style>
+    <!-- Link CSS của Bootstrap -->
+   
+<hr />
+<div style="font-size:30px;margin-left :10px;"><p>DANH MỤC CHỦ ĐỀ</p></div>
+<hr />
+@foreach (var item in Model)
+{
+    <a href="@Url.Action("SachTheoChuDe","ChuDe", new { @Ma=item.MaChuDe})" class="button btn-pastel" icon-link icon-link-hover style="margin:20px">@item.TenChuDe</a>
+}

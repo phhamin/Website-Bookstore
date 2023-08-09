@@ -1,0 +1,64 @@
+﻿@{
+    ViewBag.Title = "DangNhap";
+}
+<div style="border: hidden 1px; background-color: gainsboro; padding: 50px; border-radius: 10px; margin-left: 25%; margin-right: 25%; ">
+    <h2 style="font-weight:bold;text-align:center">Đăng Nhập</h2>
+    <br />
+    <div class="DangNhap">
+        @using (Html.BeginForm())
+        {
+            <h1>@ViewBag.ThongBao</h1>
+            <div >
+                @Html.TextBox("txtTaiKhoan", "", htmlAttributes: new { @class = "txtTaiKhoan", @placeholder = "Hãy nhập tài khoản" })<br /><br />
+            </div>
+            <div class="password-input" >
+                @Html.Password("txtMatKhau", "", htmlAttributes: new { @class = "txtMatKhau", @placeholder = "Hãy nhập mật khẩu" })
+            </div>
+            <br /><br />
+            <input id="btnDangNhap" type="submit" value="Đăng Nhập" class="button" style="border-radius:10px" />
+        }
+    </div>
+</div>
+<style>
+    #txtTaiKhoan {
+        border: 4px solid #ccc;
+        border-radius:10px;
+    }
+
+    #txtMatKhau {
+        border: 5px solid #ccc;
+        border-radius: 10px;
+    }
+
+    .DangNhap {
+        text-align: center;
+    }
+
+    .password-input {
+        position: relative;
+        display: inline-block;
+    }
+
+    .toggle-password {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        cursor: pointer;
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var togglePassword = document.querySelector(".toggle-password");
+        var passwordInput = document.querySelector(".txtMatKhau");
+
+        togglePassword.addEventListener("click", function () {
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+            } else {
+                passwordInput.type = "password";
+            }
+        });
+    });
+</script>

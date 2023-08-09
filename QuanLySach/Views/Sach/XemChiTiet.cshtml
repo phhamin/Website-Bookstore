@@ -1,0 +1,63 @@
+﻿@using QuanLySach.Models;
+@model Sach
+@{
+    ViewBag.Title = "XemChiTiet";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .card-info {
+        font-size: 25px;
+    }
+
+        .card-info strong {
+            font-weight: bold;
+        }
+
+        .card-info li {
+            margin-bottom: 10px;
+        }
+
+    .btn-primary {
+        font-size: 18px;
+        background-color: #cfb686;
+        border-radius: 10px;
+        padding: 10px 20px;
+        color: white;
+        border: none;
+        transition: all 0.3s ease;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+        .btn-primary:hover {
+            background-color: #e0e0e0;
+            transform: scale(1.05);
+        }
+
+        .btn-primary i {
+            margin-left: 5px;
+        }
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4 col-md-6">
+            <img src="~/HinhAnhSP/@Model.AnhBia" alt="Image" class="img-fluid">
+        </div>
+        <div class="col-lg-8 col-md-6 d-flex flex-column justify-content-center">
+            <h2 class="font-weight-bold mb-3">Thông tin sách</h2>
+            <ul class="list-unstyled card-info">
+                <li><strong>Mã Sách:</strong> @Model.MaSach</li>
+                <li><strong>Tên Sách:</strong> @Model.TenSach</li>
+                <li><strong>Chủ Đề:</strong> @Model.ChuDe.TenChuDe</li>
+                <li><strong>Nhà Xuất Bản:</strong> @Model.NhaXuatBan.TenNXB</li>
+                <li><strong>Thông Tin:</strong> @Model.MoTa</li>
+                <li><strong>Giá Bán:</strong> @string.Format("{0:0,0 }", Model.GiaBan) vnd</li>
+            </ul>
+            @using (Html.BeginForm("ThemGioHang", "GioHang", new { @Ma = Model.MaSach, @strURL = Request.Url.ToString() }))
+            {
+                <button type="submit" class="btn btn-primary align-self-center mt-auto">Mua Hàng <i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
+            }
+        </div>
+    </div>
+</div>

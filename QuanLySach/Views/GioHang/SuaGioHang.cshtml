@@ -1,0 +1,80 @@
+﻿@using QuanLySach.Models;
+@model List<GioHang>
+
+@{
+    ViewBag.Title = "SuaGioHang";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .btn-pastel {
+        background-color: #cfb686;
+        color: #fff;
+    }
+</style>
+<h2>Giỏ Hàng</h2>
+
+<table>
+    <tr>
+        <th style="font-weight:bold">Mã Sách</th>
+
+        <th style="font-weight:bold">Tên Sách</th>
+
+        <th style="font-weight:bold">Ảnh Bìa</th>
+
+        <th style="font-weight:bold">Đơn Giá</th>
+
+        <th style="font-weight:bold">Số Lượng</th>
+
+        <th style="font-weight:bold">Thành Tiền</th>
+    </tr>
+
+
+    @foreach (var item in Model)
+    {
+        <tr style="clear:both">
+            <td>@item.iMaSP</td>
+
+            <td>@item.iTenSP</td>
+
+            <td><img src="~/HinhAnhSP/@item.iAnhBia" style="width:50px;height:50px;" /> </td>
+
+            <td>@string.Format("{0:0,0}", item.iDonGia) vnd</td>
+
+            @using (Html.BeginForm("CapNhatGioHang", "GioHang", new { @Ma = item.iMaSP }))
+            {
+                <td>@Html.TextBox("txtSoLuong", @item.iSoLuong) </td>
+
+
+                <td>
+                    @string.Format("{0:0,0}", item.iThanhTien) vnd
+                </td>
+                <td>
+                    <button type="submit" class="button btn-pastel">Cập Nhập </button>
+                    <br /><br />
+                    <span class="button btn-pastel">@Html.ActionLink("Xóa", "XoaGioHang", new { @Ma = item.iMaSP })</span>
+                </td>
+
+            }
+        </tr>
+    }
+
+</table>
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #cfb686;
+        text-align: center;
+        padding: 28px;
+        text-shadow: 1px 1px 5px #ccc;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2e0bd;
+    }
+</style>
+

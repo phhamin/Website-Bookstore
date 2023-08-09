@@ -1,0 +1,20 @@
+﻿@model List<QuanLySach.Models.NhaXuatBan>
+@using QuanLySach.Models
+@{
+    ViewBag.Title = "DanhMucNhaXuatBan";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .btn-pastel {
+        background-color: #cfb686;
+        color: #fff;
+    }
+</style>
+<hr />
+<div style="font-size:30px;margin-left :10px;"><p>DANH MỤC NHÀ XUẤT BẢN</p></div>
+<hr />
+@foreach (var item in Model)
+{
+    <a href="@Url.Action("SachTheoNhaXuatBan","NhaXuatBan",new {@Ma=item.MaNXB})" class="button btn-pastel" style="margin:10px; width: 330px">@item.TenNXB</a>
+}
+
